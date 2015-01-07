@@ -14,6 +14,11 @@
 		3B1506101A5D72F6006D084C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B15060F1A5D72F6006D084C /* Images.xcassets */; };
 		3B1506131A5D72F6006D084C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1506111A5D72F6006D084C /* LaunchScreen.xib */; };
 		3B15061F1A5D72F6006D084C /* EverCraftTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15061E1A5D72F6006D084C /* EverCraftTests.m */; };
+		3B15062A1A5D73C7006D084C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1506291A5D73C7006D084C /* Character.m */; };
+		3B15062B1A5D73DD006D084C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1506291A5D73C7006D084C /* Character.m */; };
+		3B15062E1A5D94CC006D084C /* Ability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15062D1A5D94CC006D084C /* Ability.m */; };
+		3B15062F1A5D94CC006D084C /* Ability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15062D1A5D94CC006D084C /* Ability.m */; };
+		3B1506311A5D9631006D084C /* AbilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1506301A5D9631006D084C /* AbilityTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +45,11 @@
 		3B1506181A5D72F6006D084C /* EverCraftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EverCraftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B15061D1A5D72F6006D084C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B15061E1A5D72F6006D084C /* EverCraftTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EverCraftTests.m; sourceTree = "<group>"; };
+		3B1506281A5D73C7006D084C /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
+		3B1506291A5D73C7006D084C /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Character.m; sourceTree = "<group>"; };
+		3B15062C1A5D94CC006D084C /* Ability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ability.h; sourceTree = "<group>"; };
+		3B15062D1A5D94CC006D084C /* Ability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ability.m; sourceTree = "<group>"; };
+		3B1506301A5D9631006D084C /* AbilityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbilityTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +99,10 @@
 				3B15060F1A5D72F6006D084C /* Images.xcassets */,
 				3B1506111A5D72F6006D084C /* LaunchScreen.xib */,
 				3B1506021A5D72F6006D084C /* Supporting Files */,
+				3B1506281A5D73C7006D084C /* Character.h */,
+				3B1506291A5D73C7006D084C /* Character.m */,
+				3B15062C1A5D94CC006D084C /* Ability.h */,
+				3B15062D1A5D94CC006D084C /* Ability.m */,
 			);
 			path = EverCraft;
 			sourceTree = "<group>";
@@ -106,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				3B15061E1A5D72F6006D084C /* EverCraftTests.m */,
+				3B1506301A5D9631006D084C /* AbilityTests.m */,
 				3B15061C1A5D72F6006D084C /* Supporting Files */,
 			);
 			path = EverCraftTests;
@@ -220,8 +235,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B15060B1A5D72F6006D084C /* ViewController.m in Sources */,
+				3B15062E1A5D94CC006D084C /* Ability.m in Sources */,
 				3B1506081A5D72F6006D084C /* AppDelegate.m in Sources */,
 				3B1506051A5D72F6006D084C /* main.m in Sources */,
+				3B15062A1A5D73C7006D084C /* Character.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,7 +246,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B15062F1A5D94CC006D084C /* Ability.m in Sources */,
 				3B15061F1A5D72F6006D084C /* EverCraftTests.m in Sources */,
+				3B1506311A5D9631006D084C /* AbilityTests.m in Sources */,
+				3B15062B1A5D73DD006D084C /* Character.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
