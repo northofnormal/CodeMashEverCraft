@@ -63,7 +63,7 @@
 
 -(void)testThatRollBeatsOpponentsArmor {
     // then
-    XCTAssertTrue([self.character attack:self.attackResult wasSuccessfulAgainst:self.opponent]);
+    XCTAssertTrue([self.character attack:15 wasSuccessfulAgainst:self.opponent]);
 }
 
 - (void)testThatWeakerAttackDoesNotKillOpponent {
@@ -106,7 +106,85 @@
 
 -(void)testThatStrengthModifierModifiesAttack {
     self.character.strength.score = 15;
-    XCTAssertEqual(13, [self.character rollToAttack]);
+    XCTAssertEqual(11, [self.character rollToAttack]);
+}
+
+- (void)testThatStrengthModifierModifiesDamage {
+    self.character.strength.score = 15;
+    [self.opponent takeDamageWithRoll:12 WithAttacker:self.character];
+    XCTAssertEqual(self.opponent.hitPoints, 2);
+}
+
+-(void)testThatCriticalHitsDoubleStrengthModifier {
+    self.character.strength.score = 12;
+    [self.opponent takeDamageWithRoll:20 WithAttacker:self.character];
+    XCTAssertEqual(self.opponent.hitPoints, 1);
+}
+
+- (void)testThatEveryHitDoesAtLeast1DamageDespiteModifiers {
+    self.character.strength.score = 1;
+    [self.opponent takeDamageWithRoll:16 WithAttacker:self.character];
+    
+    XCTAssertEqual(self.opponent.hitPoints, 4);
+}
+
+-(void)testThatDexterityModifiesArmor {
+    self.opponent.dexterity.score = 12;
+    XCTAssertFalse([self.character attack:10 wasSuccessfulAgainst:self.opponent]);
+}
+
+- (void)testThatTheConstitutionModifierAddsToHitPoints {
+    self.character.constitution.score = 19;
+    [self.character refreshAbilities];
+    XCTAssertEqual(self.character.hitPoints, 9);
+}
+
+- (void)testThatTheConModifierDoesNotKillTheCharacter {
+    self.character.constitution.score = 1;
+    [self.character refreshAbilities];
+    XCTAssertEqual(self.character.hitPoints, 1);
+}
+
+- (void)testThatSuccessfulAttacksGiveCharactersExperiencePoints {
+    [self.character attack:18 wasSuccessfulAgainst:self.opponent];
+    
+    XCTAssert(self.character.experiencePoints = 10);
+}
+
+- (void)testThatCharactersIncreaseLevelsWithEvery1000XP {
+    self.character.experiencePoints = 995;
+    [self.character attack:18 wasSuccessfulAgainst:self.opponent];
+    
+    XCTAssert(self.character.level = 2);
+}
+
+-(void) testThatHitpointsIncreaseWithLevelUp {
+    self.character.experiencePoints = 995;
+    [self.character attack:18 wasSuccessfulAgainst:self.opponent];
+    
+    XCTAssertEqual(self.character.hitPoints, 10);
+}
+
+- (void)testThatABadConModifierStillAllows5HitPointsPerLevel {
+    self.character.constitution.score = 1;
+    self.character.experiencePoints = 995;
+    [self.character attack:18 wasSuccessfulAgainst:self.opponent];
+    
+    XCTAssertEqual(self.character.hitPoints, 6);
+}
+
+- (void)testThatHitPointsIncreaseWithConModifierOnLevelUp {
+    self.character.constitution.score = 15;
+    self.character.experiencePoints = 995;
+    [self.character attack:18 wasSuccessfulAgainst:self.opponent];
+    
+    XCTAssertEqual(self.character.hitPoints, 12);
+}
+
+- (void)testThatAttackRollIncreasesBy1AtEveryEvenLevel {
+    self.character.level = 2;
+    
+    XCTAssertTrue([self.character attack:[self.character rollToAttack] wasSuccessfulAgainst:self.opponent]);
 }
 
 @end

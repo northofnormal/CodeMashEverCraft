@@ -16,6 +16,7 @@
         _armor = 10;
         _hitPoints = 5;
         _isAlive = YES;
+        _level = 1;
         
         _strength = [[Ability alloc] init];
         _dexterity = [[Ability alloc] init];
@@ -28,27 +29,59 @@
 }
 
 -(NSInteger)rollToAttack {
-    return 11;
+    return 9 + self.strength.modifier + floor(self.level/2);
 }
 
 - (BOOL)attack:(NSInteger)roll wasSuccessfulAgainst:(Character *)opponent {
-    if (roll >= opponent.armor) {
-        [opponent takeDamageWithRoll:roll];
+    NSInteger modifiedOpponentArmor = [opponent modify:opponent.armor WithModifier:opponent.dexterity];
+    
+    if (roll >= modifiedOpponentArmor) {
+        [opponent takeDamageWithRoll:roll WithAttacker:self];
+        self.experiencePoints += 10;
+        [self refreshLevel];
         return YES;
     } else {
         return NO;
     }
 }
 
--(void)takeDamageWithRoll:(NSInteger)roll {
-    self.hitPoints = self.hitPoints - (roll == 20 ? 2 :1);
-    if (self.hitPoints <= 0) {
-        self.isAlive = NO;
+- (NSInteger)modify:(NSInteger)property WithModifier:(Ability *)ability {
+    return property += ability.modifier;
+}
+
+- (void)takeDamageWithRoll:(NSInteger)roll WithAttacker:(Character*)attacker {
+    if (roll == 20) {
+        self.hitPoints -= 2;
+        self.hitPoints -= (attacker.strength.modifier * 2);
     }
+    else {
+        self.hitPoints -= 1;
+        if (attacker.strength.modifier >= 0) {
+            self.hitPoints = self.hitPoints - attacker.strength.modifier;
+        }
+    }
+    
+    self.isAlive = self.hitPoints > 0;
 }
 
 - (BOOL)attackRollIsCriticalHit:(NSInteger)attack {
     return attack == 20;
+}
+
+- (void)refreshAbilities {
+    self.hitPoints += self.constitution.modifier;
+    if (self.hitPoints <= 0) {
+        self.hitPoints = 1; 
+    };
+}
+
+-(void)refreshLevel {
+    NSInteger previousLevel = self.level;
+    self.level = floor(self.experiencePoints / 1000) + 1;
+    
+    if (previousLevel < self.level) {
+        self.hitPoints = self.hitPoints + (MAX(1, (5 + self.constitution.modifier)));
+    }
 }
 
 

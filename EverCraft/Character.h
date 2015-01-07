@@ -22,6 +22,8 @@ typedef enum {
 @property (nonatomic, assign) NSInteger armor;
 @property (nonatomic, assign) NSInteger hitPoints;
 @property (nonatomic, assign) BOOL isAlive;
+@property (nonatomic, assign) NSInteger experiencePoints;
+@property (nonatomic, assign) NSInteger level;
 
 @property (nonatomic, strong) Ability *strength;
 @property (nonatomic, strong) Ability *dexterity;
@@ -32,6 +34,6 @@ typedef enum {
 
 -(NSInteger)rollToAttack;
 - (BOOL)attack:(NSInteger)roll wasSuccessfulAgainst:(Character *)opponent;
--(void)takeDamageWithRoll:(NSInteger)roll;
-
+-(void)takeDamageWithRoll:(NSInteger)roll WithAttacker:(Character*)attacker;
+- (void)refreshAbilities;
 @end
